@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class FrontscreenController {
@@ -22,92 +26,83 @@ public class FrontscreenController {
     private Pane pane;
 
     @FXML
-    private ListView<FlashcardSet> cardsListview;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    private Button playButton;
-
-    @FXML
     private Button uploadButton;
     private FlashcardDaoimpl fdi = new FlashcardDaoimpl();
 
     final FileChooser fileChooser = new FileChooser();
 
-    private final ObservableList<FlashcardSet> cardSets = FXCollections.observableArrayList();
+    private Boolean playmode;
+
+
 
     public void initialize(){
-        cardsListview.setItems(cardSets);
+        if(fdi.somethingInDatabase()){
+            uploadButton.setText("Play");
+            playmode = true;
+        } else{
+            uploadButton.setText("Import cards");
+            playmode = false;
+        }
+    }
+
+    void  changeScene(Scene scene) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(FlashcardApplication.class.getResource("hello-view.fxml"));
+        scene.setRoot(fxmlLoader.load());
     }
 
     @FXML
-    void deleteButtonClicked(ActionEvent event) {
+    void uploadButtonClicked(ActionEvent event) throws IOException {
+        if (playmode = true){
+            Scene currentScene = uploadButton.getScene();
+            changeScene(currentScene);
 
-    }
+        } else {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select File");
 
-    @FXML
-    void playButtonClicked(ActionEvent event) {
+            // display files in folder from which the app was launched
+            fileChooser.setInitialDirectory(new File("."));
 
-    }
+            // display the FileChooser
+            File file = fileChooser.showOpenDialog(
+                    pane.getScene().getWindow());
 
-    @FXML
-    void uploadButtonClicked(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select File");
-
-        // display files in folder from which the app was launched
-        fileChooser.setInitialDirectory(new File("."));
-
-        // display the FileChooser
-        File file = fileChooser.showOpenDialog(
-                pane.getScene().getWindow());
-
-        if (file != null) {
-            // Create the dialog outside the loop
-            Dialog<ButtonType> dialog = new Dialog();
-            dialog.setTitle("Add new card set");
-            dialog.setHeaderText("Add new card set");
-
-            ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-            dialog.getDialogPane().getButtonTypes().addAll(addButton, ButtonType.CANCEL);
-
-            TextField categoryTextField = new TextField();
-            categoryTextField.setPromptText("Category");
-            VBox box = new VBox(categoryTextField);
-            box.setPrefHeight(50);
-            box.setPrefWidth(300);
-            dialog.getDialogPane().setContent(box);
-
-            Optional<ButtonType> button = dialog.showAndWait();
-
-            if (button.isPresent() && button.get() == addButton) {
+            if (file != null) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
                     String line;
+
                     while ((line = reader.readLine()) != null) {
-                        // Split the line based on the separator (assuming tab-separated values)
-                        String[] values = line.split("\t");
+                        if (!line.trim().startsWith("#")) {
+                            String[] values = line.split("\t");
 
-                        // Extract values and insert into the database
-                        if (values.length >= 3) {  // Ensure there are at least three columns
-                            String cardID = values[0];
-                            String category = values[1];
-                            String question = values[2];
+                            if (values.length >= 3) {
+                                String cardID = values[0];
+                                String category = values[1];
+                                String question = values[2];
+                                String artwork = values[3];
+                                String artist = values[4];
+                                String title = values[5];
 
-                            FlashcardSet fs = new FlashcardSet(0, category);
+                                String subtitle = values.length >= 7 ? values[6] : "";
+                                String date = values.length >= 8 ? values[7] : "";
+                                String period = values.length >= 9 ? values[8] : "";
+                                String medium = values.length >= 10 ? values[9] : "";
+                                String nationality = values.length >= 11 ? values[10] : "";
+                                String note = values.length >= 12 ? values[11] : "";
+                                String tags = values.length >= 13 ? values[12] : "";
 
-                            categoryTextField.setText(fs.getCategory());
-                            fdi.addFlashcards(cardID, categoryTextField.getText(), question);
+                                fdi.addFlashcards(cardID, category, question, artwork, artist, title, subtitle, date, period, medium, nationality, note, tags);
+                            }
                         }
-
                     }
-                } catch (IOException | SQLException e) {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                // User clicked Add, insert into the database
-
+                uploadButton.setText("Play");
+                playmode = true;
             }
+
+
         }
     }
 }
