@@ -1,6 +1,8 @@
 package com.example.flashcardproject;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlashcardDaoimpl implements FlashcardDao {
     private  Connection con;
@@ -35,6 +37,37 @@ public class FlashcardDaoimpl implements FlashcardDao {
             e.printStackTrace();
             // Handle the exception according to your application's error handling strategy
         }
+    }
+
+    @Override
+    public List<Flashcard> getAllFlashcards() throws SQLException {
+        List<Flashcard> flashcards = new ArrayList<>();
+
+        String sql = "SELECT * FROM cards";
+
+        try (PreparedStatement statement = con.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Flashcard flashcard = new Flashcard("", "", "", "", "", "", "", "", "", "", "", "", "");
+                flashcard.setCardID(resultSet.getString("CardID"));
+                flashcard.setCategory(resultSet.getString("Category"));
+                flashcard.setQuestion(resultSet.getString("Question"));
+                flashcard.setArtwork(resultSet.getString("Artwork"));
+                flashcard.setArtist(resultSet.getString("Artist"));
+                flashcard.setTitle(resultSet.getString("Title"));
+                flashcard.setSubtitle(resultSet.getString("Subtitle"));
+                flashcard.setDate(resultSet.getString("Date"));
+                flashcard.setArtist(resultSet.getString("period"));
+                flashcard.setArtist(resultSet.getString("medium"));
+                flashcard.setArtist(resultSet.getString("Note"));
+                flashcard.setArtist(resultSet.getString("Tags"));
+
+                flashcards.add(flashcard);
+            }
+        }
+
+        return flashcards;
     }
 
     public boolean somethingInDatabase(){

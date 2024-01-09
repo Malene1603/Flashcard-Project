@@ -46,7 +46,7 @@ public class FrontscreenController {
     }
 
     void  changeScene(Scene scene) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(FlashcardApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FlashcardApplication.class.getResource("FlashcardScreen.fxml"));
         scene.setRoot(fxmlLoader.load());
     }
 
