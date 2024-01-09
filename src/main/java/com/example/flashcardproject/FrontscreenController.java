@@ -52,7 +52,8 @@ public class FrontscreenController {
 
     @FXML
     void uploadButtonClicked(ActionEvent event) throws IOException {
-        if (playmode = true){
+        System.out.println(playmode);
+        if (playmode){
             Scene currentScene = uploadButton.getScene();
             changeScene(currentScene);
 
@@ -70,6 +71,7 @@ public class FrontscreenController {
             if (file != null) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
                     String line;
+                    System.out.println(file.getPath());
 
                     while ((line = reader.readLine()) != null) {
                         if (!line.trim().startsWith("#")) {

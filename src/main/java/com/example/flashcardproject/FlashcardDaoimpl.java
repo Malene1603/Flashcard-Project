@@ -58,10 +58,10 @@ public class FlashcardDaoimpl implements FlashcardDao {
                 flashcard.setTitle(resultSet.getString("Title"));
                 flashcard.setSubtitle(resultSet.getString("Subtitle"));
                 flashcard.setDate(resultSet.getString("Date"));
-                flashcard.setArtist(resultSet.getString("period"));
-                flashcard.setArtist(resultSet.getString("medium"));
-                flashcard.setArtist(resultSet.getString("Note"));
-                flashcard.setArtist(resultSet.getString("Tags"));
+                flashcard.setPeriod(resultSet.getString("period"));
+                flashcard.setMedium(resultSet.getString("medium"));
+                flashcard.setNote(resultSet.getString("Note"));
+                flashcard.setTags(resultSet.getString("Tags"));
 
                 flashcards.add(flashcard);
             }
