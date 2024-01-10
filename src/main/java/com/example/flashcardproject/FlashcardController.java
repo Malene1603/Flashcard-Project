@@ -6,12 +6,40 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 
 public class FlashcardController {
+
+    @FXML
+    private Label cardsInSetLabel;
+
+    @FXML
+    private Label cardsNotShownLabel;
+
+    @FXML
+    private Label almostCorrectLabel;
+
+    @FXML
+    private Label correctLabel;
+
+    @FXML
+    private Label incorrectLabel;
+
+    @FXML
+    private Label partiallyCorrectLabel;
+
+    @FXML
+    private Button finnishButton;
+
+    @FXML
+    private Button pauseButton;
+
+    @FXML
+    private Button restartButton;
 
     @FXML
     private Label artistLabel;
@@ -45,14 +73,101 @@ public class FlashcardController {
 
     @FXML
     private Button incorrectButton;
+    @FXML
+    private Button irrelevantButton;
 
-    private FlashcardDao flashcardDao;
+
 
     public FlashcardController() {
     }
 
     public void initialize() throws SQLException, MalformedURLException {
         showRandomFlashcard();
+
+        Background correctBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Correct.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        correctButton.setOpacity(0.0);
+        correctButton.setBackground(correctBackground);
+
+        Background AlmostCorrectBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("AlmostCorrect.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        almostCorrectButton.setOpacity(0.0);
+        almostCorrectButton.setBackground(AlmostCorrectBackground);
+
+        Background partiallyCorrectBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("PartiallyCorrect.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        partiallyCorrectButton.setOpacity(0.0);
+        partiallyCorrectButton.setBackground(partiallyCorrectBackground);
+
+        Background incorrectBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Incorrect.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        incorrectButton.setOpacity(0.0);
+        incorrectButton.setBackground(incorrectBackground);
+
+        Background irrelevantBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Irrelevant.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        irrelevantButton.setBackground(irrelevantBackground);
+
+        Background pauseBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Pause.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        pauseButton.setBackground(pauseBackground);
+
+        Background finnishBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Finnish.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        finnishButton.setBackground(finnishBackground);
+
+        Background restartBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Restart.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        restartButton.setBackground(restartBackground);
+
+        Background showAnswerBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("ShowAnswer.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        showAnswerButton.setBackground(showAnswerBackground);
     }
 
 
@@ -89,10 +204,7 @@ public class FlashcardController {
             periodLabel.setText(randomFlashcard.getPeriod());
             periodLabel.setOpacity(0.0);
 
-            correctButton.setOpacity(0.0);
-            almostCorrectButton.setOpacity(0.0);
-            partiallyCorrectButton.setOpacity(0.0);
-            incorrectButton.setOpacity(0.0);
+
         } else {
             // Handle the case where there are no flashcards
             questionLabel.setText("No flashcards available");
@@ -105,6 +217,7 @@ public class FlashcardController {
 
     public void showAnswerButtonClicked(ActionEvent actionEvent) {
         showAnswerButton.setOpacity(0.0);
+        irrelevantButton.setOpacity(0.0);
 
         artistLabel.setOpacity(1.0);
         titleLabel.setOpacity(1.0);
@@ -127,5 +240,18 @@ public class FlashcardController {
     }
 
     public void correctButtonClicked(ActionEvent actionEvent) {
+    }
+
+    public void irrelevantButtonClicked(ActionEvent event) {
+
+    }
+
+    public void pauseButtonClicked(ActionEvent actionEvent) {
+    }
+
+    public void restartButtonClicked(ActionEvent actionEvent) {
+    }
+
+    public void FinnishButtonClicked(ActionEvent actionEvent) {
     }
 }

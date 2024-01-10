@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.flashcardproject.FlashcardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.flashcardproject.FlashcardController">
    <children>
       <HBox alignment="CENTER" layoutX="45.0" layoutY="914.0" prefHeight="69.0" prefWidth="715.0" spacing="30.0">
          <children>
-            <Button fx:id="incorrectButton" mnemonicParsing="false" onAction="#incorrectButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Incorrect" />
-            <Button fx:id="partiallyCorrectButton" mnemonicParsing="false" onAction="#partiallyCorrectButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Partially correct" />
-            <Button fx:id="almostCorrectButton" mnemonicParsing="false" onAction="#almostCorrectButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Almost correct" />
-            <Button fx:id="correctButton" mnemonicParsing="false" onAction="#correctButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Correct" />
+            <Button fx:id="incorrectButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#incorrectButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Incorrect" />
+            <Button fx:id="partiallyCorrectButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#partiallyCorrectButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Partially correct" />
+            <Button fx:id="almostCorrectButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#almostCorrectButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Almost correct" />
+            <Button fx:id="correctButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#correctButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Correct" />
          </children>
       </HBox>
       <ImageView fitHeight="628.0" fitWidth="667.0" layoutX="79.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
@@ -25,6 +29,11 @@
             <Image url="@Palette.png" />
          </image>
       </ImageView>
+      <BorderPane layoutX="150.0" layoutY="180.0" prefHeight="300.0" prefWidth="500.0">
+         <center>
+            <ImageView fx:id="questionImage" fitHeight="300.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
       <Label fx:id="artistLabel" alignment="CENTER" layoutX="169.0" layoutY="727.0" prefHeight="52.0" prefWidth="464.0" text="Artist">
          <font>
             <Font name="Bradley Hand Bold" size="36.0" />
@@ -35,7 +44,6 @@
             <Font name="Bradley Hand Bold" size="24.0" />
          </font>
       </Label>
-      <ImageView fx:id="questionImage" fitHeight="350.0" fitWidth="500.0" layoutX="151.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="questionLabel" alignment="CENTER" layoutX="101.0" layoutY="119.0" prefWidth="600.0" text="Question">
          <font>
             <Font name="Bradley Hand Bold" size="36.0" />
@@ -51,6 +59,56 @@
             <Font name="Bradley Hand Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="showAnswerButton" layoutX="324.0" layoutY="914.0" mnemonicParsing="false" onAction="#showAnswerButtonClicked" prefHeight="69.0" prefWidth="150.0" text="Show answer" />
+      <Label fx:id="cardsInSetLabel" alignment="TOP_LEFT" layoutX="24.0" layoutY="18.0" prefHeight="35.0" prefWidth="286.0" text="Cards in set:">
+         <font>
+            <Font name="Bradley Hand Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="cardsLeftLabel" alignment="TOP_LEFT" layoutX="24.0" layoutY="54.0" prefHeight="35.0" prefWidth="286.0" text="Cards left:">
+         <font>
+            <Font name="Bradley Hand Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox layoutX="140.0" layoutY="496.0" prefHeight="40.0" prefWidth="520.0" spacing="20.0">
+         <children>
+            <Label fx:id="correctLabel" alignment="TOP_LEFT" prefHeight="35.0" prefWidth="250.0" text="Corect:">
+               <font>
+                  <Font name="Bradley Hand Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="almostCorrectLabel" alignment="TOP_LEFT" prefHeight="35.0" prefWidth="250.0" text="Almost correct:">
+               <font>
+                  <Font name="Bradley Hand Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="140.0" layoutY="523.0" prefHeight="40.0" prefWidth="520.0" spacing="20.0">
+         <children>
+            <Label fx:id="incorrectLabel" alignment="TOP_LEFT" prefHeight="35.0" prefWidth="250.0" text="Incorrect:">
+               <font>
+                  <Font name="Bradley Hand Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="partiallyCorrectLabel" alignment="TOP_LEFT" prefHeight="35.0" prefWidth="250.0" text="Partially correct:">
+               <font>
+                  <Font name="Bradley Hand Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="489.0" layoutY="4.0" prefHeight="100.0" prefWidth="290.0" spacing="10.0">
+         <children>
+            <Button fx:id="pauseButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#pauseButtonClicked" prefHeight="100.0" prefWidth="90.0" text="Button" />
+            <Button fx:id="restartButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#restartButtonClicked" prefHeight="100.0" prefWidth="90.0" text="Button" />
+            <Button fx:id="finnishButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#FinnishButtonClicked" prefHeight="100.0" prefWidth="90.0" text="Button" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="900.0" prefHeight="100.0" prefWidth="800.0" spacing="40.0">
+         <children>
+            <Button fx:id="showAnswerButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#showAnswerButtonClicked" prefHeight="100.0" prefWidth="230.0" text="Show answer" />
+            <Button fx:id="irrelevantButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#irrelevantButtonClicked" prefHeight="100.0" prefWidth="230.0" text="Button" />
+         </children>
+      </HBox>
    </children>
 </Pane>
