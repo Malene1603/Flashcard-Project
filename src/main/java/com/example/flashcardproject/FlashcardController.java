@@ -18,7 +18,7 @@ public class FlashcardController {
     private Label cardsInSetLabel;
 
     @FXML
-    private Label cardsNotShownLabel;
+    private Label cardsLeftLabel;
 
     @FXML
     private Label almostCorrectLabel;
@@ -73,8 +73,11 @@ public class FlashcardController {
 
     @FXML
     private Button incorrectButton;
+
     @FXML
     private Button irrelevantButton;
+
+    private FlashcardDaoimpl fdi = new FlashcardDaoimpl();
 
 
 
@@ -83,6 +86,13 @@ public class FlashcardController {
 
     public void initialize() throws SQLException, MalformedURLException {
         showRandomFlashcard();
+
+        correctLabel.setText("Correct: " + fdi.countCorrect());
+        incorrectLabel.setText("Incorrect: " + fdi.countIncorrect());
+        almostCorrectLabel.setText("Almost correct: " + fdi.countAlmostCorrect());
+        partiallyCorrectLabel.setText("Partially correct: " + fdi.countPartiallyCorrect());
+        cardsInSetLabel.setText("Card in set: " + fdi.countCards());
+        cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
 
         Background correctBackground = new Background(new BackgroundImage(
                 new Image(getClass().getResource("Correct.png").toExternalForm()),

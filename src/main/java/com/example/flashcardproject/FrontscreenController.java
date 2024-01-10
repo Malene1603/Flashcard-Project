@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Random;
 
 public class FrontscreenController {
     @FXML
@@ -54,6 +55,19 @@ public class FrontscreenController {
     void uploadButtonClicked(ActionEvent event) throws IOException {
         System.out.println(playmode);
         if (playmode){
+            if (!fdi.somethingInCardStatusTable()){
+                fdi.cardStatusInit();
+
+                int total = fdi.countAnswers();
+
+                for (int i = 1; i <= total; i++ ){
+                    Random random = new Random();
+                    int randomIndex = random.nextInt(total - i + 1);
+                    System.out.println(randomIndex);
+                    fdi.schuffleCards(randomIndex, i);
+                }
+            }
+
             Scene currentScene = uploadButton.getScene();
             changeScene(currentScene);
 

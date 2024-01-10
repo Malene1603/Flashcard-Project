@@ -11,7 +11,7 @@ public class FlashcardManager {
     }
 
     public List<Flashcard> getAllFlashcards() throws SQLException {
-        return fdi.getAllFlashcards();
+        return fdi.nextCard();
     }
 
     public Flashcard getRandomFlashcard() throws SQLException {
@@ -21,9 +21,6 @@ public class FlashcardManager {
             return null;
         }
 
-        Random random = new Random();
-        int randomIndex = random.nextInt(allFlashcards.size());
-
-        return allFlashcards.get(randomIndex);
+        return allFlashcards.get(0);
     }
 }
