@@ -1,6 +1,8 @@
 package com.example.flashcardproject;
 
 public class Flashcard {
+
+    // Alle de atributter et flashcard har.
     private String CardID;
     private String Category;
     private String Question;
@@ -15,6 +17,7 @@ public class Flashcard {
     private String Note;
     private String Tags;
 
+    // Konstruktør, der initialiserer alle attributterne ved oprettelse af et flashcard-objekt.
     public Flashcard(String cardID, String category, String question, String artwork, String artist, String title, String subtitle, String date, String period, String medium, String nationality, String note, String tags) {
         this.CardID = cardID;
         this.Category = category;
@@ -31,6 +34,7 @@ public class Flashcard {
         this.Tags = tags;
     }
 
+    // Metoder til at hente værdierne af attributterne.
     public String getCardID() {
         return CardID;
     }
@@ -84,6 +88,7 @@ public class Flashcard {
     }
 
 
+    // Metoder til at sætte værdierne af attributterne.
     public void setCardID(String cardID) {
         CardID = cardID;
     }

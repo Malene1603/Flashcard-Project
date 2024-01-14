@@ -2,17 +2,24 @@ package com.example.flashcardproject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 
 public class FlashcardController {
+
+    @FXML
+    private HBox hbox;
 
     @FXML
     private Label cardsInSetLabel;
@@ -185,7 +192,7 @@ public class FlashcardController {
     void showRandomFlashcard() throws SQLException, MalformedURLException {
         FlashcardManager flashcardManager = new FlashcardManager();
 
-        Flashcard randomFlashcard = flashcardManager.getRandomFlashcard();
+        Flashcard randomFlashcard = flashcardManager.showTheFisrstCard();
 
         if (randomFlashcard != null) {
             questionLabel.setText("Artist?");
@@ -199,7 +206,6 @@ public class FlashcardController {
             System.out.println(path);
 
             Image image = new Image(String.valueOf(getClass().getResource(path)));
-            System.out.println(image);
             questionImage.setImage(image);
 
             artistLabel.setText(randomFlashcard.getArtist());
@@ -225,9 +231,14 @@ public class FlashcardController {
         }
     }
 
+    // En eventlistener der lytter til når der bliver klikket på knappen "Show answer".
+    // Når der bliver klikket gør den knapperne "Show answer" og "Irrelevant card" usynlige.
+    // Den gør også alle labels i svarfeltet, samt alle knapperne med "svarmuligheder" synlige.
     public void showAnswerButtonClicked(ActionEvent actionEvent) {
         showAnswerButton.setOpacity(0.0);
         irrelevantButton.setOpacity(0.0);
+        hbox.setPrefHeight(0);
+        hbox.setPrefWidth(0);
 
         artistLabel.setOpacity(1.0);
         titleLabel.setOpacity(1.0);
@@ -240,7 +251,8 @@ public class FlashcardController {
         incorrectButton.setOpacity(1.0);
     }
 
-    public void incorrectButtonClicked(ActionEvent actionEvent) {
+    public void incorrectButtonClicked(ActionEvent actionEvent) throws SQLException {
+
     }
 
     public void partiallyCorrectButtonClicked(ActionEvent actionEvent) {
@@ -249,17 +261,59 @@ public class FlashcardController {
     public void almostCorrectButtonClicked(ActionEvent actionEvent) {
     }
 
-    public void correctButtonClicked(ActionEvent actionEvent) {
+    public void correctButtonClicked(ActionEvent actionEvent) throws SQLException, MalformedURLException {
+        FlashcardManager flashcardManager = new FlashcardManager();
+        Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
+
+        String cardID = thisFlashcard.getCardID();
+        String answer = "Correct";
+
+        fdi.updateAnswer(cardID, answer);
+        fdi.cardNeverShownAgain(cardID);
+        showRandomFlashcard();
+
+        cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
+        correctLabel.setText("Cards left: " + fdi.countCorrect());
+
+        correctButton.setOpacity(0);
+        incorrectButton.setOpacity(0);
+        almostCorrectButton.setOpacity(0);
+        partiallyCorrectButton.setOpacity(0);
+
+        hbox.setPrefWidth(800);
+        hbox.setPrefHeight(100);
+        showAnswerButton.setOpacity(1);
+        irrelevantButton.setOpacity(1);
     }
 
-    public void irrelevantButtonClicked(ActionEvent event) {
+    public void irrelevantButtonClicked(ActionEvent event) throws MalformedURLException, SQLException {
+        FlashcardManager flashcardManager = new FlashcardManager();
+        Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
 
+        String cardID = thisFlashcard.getCardID();
+        String answer = "Irrelevant";
+
+        fdi.updateAnswer(cardID, answer);
+        fdi.cardNeverShownAgain(cardID);
+        showRandomFlashcard();
+
+        cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
     }
 
     public void pauseButtonClicked(ActionEvent actionEvent) {
+        Stage stage = (Stage) pauseButton.getScene().getWindow();
+        stage.close();
     }
 
-    public void restartButtonClicked(ActionEvent actionEvent) {
+    void  changeScene(Scene scene) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(FlashcardApplication.class.getResource("FrontScreen.fxml"));
+        scene.setRoot(fxmlLoader.load());
+    }
+
+    public void restartButtonClicked(ActionEvent actionEvent) throws SQLException, IOException {
+        fdi.cardStatusRestart();
+        Scene currentScene = restartButton.getScene();
+        changeScene(currentScene);
     }
 
     public void FinnishButtonClicked(ActionEvent actionEvent) {

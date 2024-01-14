@@ -1,0 +1,30 @@
+#separator:tab
+#html:true
+#guid column:1
+#notetype column:2
+#deck column:3
+#tags column:13
+hT:)^7+,yL	Art	Great Works of Art::Artists	"<img src=""2014-08-19_020719.jpg"" />"	Max Ernst	Europe After the Rain II		1942	Symbolism				
+"g1a#mBvko="	Art	Great Works of Art::Artists	"<img src=""2014-08-18_113742.jpg"" />"	Peter Paul Rubens	Fall of the Damned		c. 1620	Baroque		Flemish (Southern Netherlands)		
+fJhl-P)vs9	Art	Great Works of Art::Artists	"<img src=""Thetriumphofdeath.jpg"" />"	Bruegel the Elder	Triumph of Death&nbsp;		1562	Early Renaissance,&nbsp;Northern Renaissance				
+gOQ3Na3>&:	Art	Great Works of Art::Artists	"<img src=""2014-08-18_121301.jpg"" />"	Peter Paul&nbsp;Rubens	The Adoration of the Magi (3 of 3)		1624	Baroque		Flemish (Southern Netherlands)		
+f{f`FZ97(F	Art	Great Works of Art::Artists	"<img src=""2014-08-23_203352.jpg"" />"	Raphael	The Transfiguration		1516–20	High Renaissance	oil on wood			Renaissance
+g{<`!Zipzk	Art	Great Works of Art::Artists	"<img src=""2014-08-19_052843.jpg"" />"	Henri Rousseau	Sleeping Gypsy		1897	Post-Impressionism				
+d)%I%?mk:%	Art	Great Works of Art::Artists	"<img src=""2014-08-18_202207.jpg"" />"	Vincent van Gogh	The Potato Eaters		1885	Post-Impressionism				
+oAFw~SaROy	Art	Great Works of Art::Artists	"<img src=""2014-09-08_160522.jpg"" />"	Albrecht Altdorfer	The Battle of Alexander at Issus		1529	Renaissance				
+"mcw}#bvO.("	Art	Great Works of Art::Artists	"<img src=""2014-08-19_054935.jpg"" />"	Paul Klee	Ad Marginen&nbsp;		1930	Expressionism				
+bBUp0G^;EF	Art	Great Works of Art::Artists	"<img src=""2014-08-19_035837.jpg"" />"	Rembrandt	Belshazzar's Feast		1635	Baroque				
+up?51P:Yf!	Art	Great Works of Art::Artists	"<img src=""300px-Chagall_IandTheVillage.jpg"" />"	Marc Chagall	I and the Village		1911	Expressionism				
+"bMKiJ^#:PF"	Art	Great Works of Art::Artists	"<img src=""2014-08-19_055811.jpg"" />"	Henri Rousseau	Carnival Evening		1886	Post-Impressionism, Naïve Art, Primitivism				
+r_H^bQ]0um	Art	Great Works of Art::Artists	"<img src=""2014-08-19_191542.jpg"" />"	René Magritte	The False Mirror		1928	Surrealism				
+fme!V6o)lt	Art	Great Works of Art::Artists	"<img src=""6b71451e9716b1786866e50a58101acd.jpg"" />"	Mark Tansey	Forward Retreat		1986	Contemporary Art				
+s=&rKVS^o+	Art	Great Works of Art::Artists	"<img src=""2014-08-19_060439.jpg"" />"	Jean-François Millet	Harvesters Resting		1853	Realism				
+tR9_@oY9?=	Art	Great Works of Art::Artists	"<img src=""2014-08-31_160649.jpg"" />"	Bruegel the Elder	Procession to Calvary		1564	Early Renaissance,&nbsp;Northern Renaissance				
+k^-[I^~`>*	Art	Great Works of Art::Artists	"<img src=""2014-08-20_181934.jpg"" />"	Peter Paul Rubens	Feast of Venus		1637	Baroque		Flemish (Southern Netherlands)		
+nYEBSRtB(m	Art	Great Works of Art::Artists	"<img src=""2014-08-19_164329.jpg"" />"	Paolo Uccello	Saint George and the Dragon		c. 1470	Early Renaissance				
+k|gPmA~,pG	Art	Great Works of Art::Artists	"<img src=""2014-08-19_164544.jpg"" />"	Egon Schiele	Death and the Maiden		1915	Expressionism				
+cA{}AAq3?[	Art	Great Works of Art::Artists	"<img src=""tumblr_kx53zsn6kk1qa3849o1_500.jpg"" />"	Egon Schiele	Family		1917	Expressionism				
+u&O`Xdm%da	Art	Great Works of Art::Artists	"<img src=""2014-08-19_165447.jpg"" />"	Hans Holbein the Younger	The Ambassadors	Double Portrait of Jean de Dinteville and Georges de Selve	1533	Northern Renaissance				
+m@j@KqxA9h	Art	Great Works of Art::Artists	"<img src=""2014-08-19_165842.jpg"" />"	Hokusai	Ocean Waves		1826-1833	Ukiyo-e				Asian_Art
+AP89GBn.@8	Art	Great Works of Art::Artists	"<img src=""776px-El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_thin_black_margin.jpg"" />"	Francisco Goya	The Third of May 1808		1814	Romanticism			"<span style="""">Di</span>verging from the traditions of Christian art and traditional depictions of war, it has no distinct precedent. The painting's content, presentation, and emotional force secure its status as a groundbreaking, archetypal image of the horrors of war."	
+			

@@ -39,6 +39,31 @@ public class FlashcardDaoimpl implements FlashcardDao {
         }
     }
 
+
+    @Override
+    public void addFlashcard(Flashcard flashcard) {
+        String sql = "INSERT INTO cards (CardID, Category, Question, Artwork, Artist, Title, Subtitle, Date, Period, Medium, Nationality, Note, Tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setString(1, flashcard.getCardID());
+            statement.setString(2, flashcard.getCategory());
+            statement.setString(3, flashcard.getQuestion());
+            statement.setString(4, flashcard.getArtwork());
+            statement.setString(5, flashcard.getArtist());
+            statement.setString(6, flashcard.getTitle());
+            statement.setString(7, flashcard.getSubtitle());
+            statement.setString(8, flashcard.getDate());
+            statement.setString(9, flashcard.getPeriod());
+            statement.setString(10, flashcard.getMedium());
+            statement.setString(11, flashcard.getNationality());
+            statement.setString(12, flashcard.getNote());
+            statement.setString(13, flashcard.getTags());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception according to your application's error handling strategy
+        }
+    }
+
     @Override
     public List<Flashcard> getAllFlashcards() throws SQLException {
         List<Flashcard> flashcards = new ArrayList<>();
@@ -58,8 +83,9 @@ public class FlashcardDaoimpl implements FlashcardDao {
                 flashcard.setTitle(resultSet.getString("Title"));
                 flashcard.setSubtitle(resultSet.getString("Subtitle"));
                 flashcard.setDate(resultSet.getString("Date"));
-                flashcard.setPeriod(resultSet.getString("period"));
-                flashcard.setMedium(resultSet.getString("medium"));
+                flashcard.setPeriod(resultSet.getString("Period"));
+                flashcard.setMedium(resultSet.getString("Medium"));
+                flashcard.setNationality(resultSet.getString("Nationality"));
                 flashcard.setNote(resultSet.getString("Note"));
                 flashcard.setTags(resultSet.getString("Tags"));
 
@@ -90,8 +116,9 @@ public class FlashcardDaoimpl implements FlashcardDao {
                 flashcard.setTitle(resultSet.getString("Title"));
                 flashcard.setSubtitle(resultSet.getString("Subtitle"));
                 flashcard.setDate(resultSet.getString("Date"));
-                flashcard.setPeriod(resultSet.getString("period"));
-                flashcard.setMedium(resultSet.getString("medium"));
+                flashcard.setPeriod(resultSet.getString("Period"));
+                flashcard.setMedium(resultSet.getString("Medium"));
+                flashcard.setNationality(resultSet.getString("Nationality"));
                 flashcard.setNote(resultSet.getString("Note"));
                 flashcard.setTags(resultSet.getString("Tags"));
 
@@ -184,6 +211,32 @@ public class FlashcardDaoimpl implements FlashcardDao {
     public void schuffleCards(Integer randomIndex, Integer position){
         try {
             String sql = "UPDATE CardStatus SET Position = "+ position +" WHERE CardID = (SELECT CardID FROM CardStatus WHERE Position IS NULL ORDER BY (SELECT NULL) OFFSET "+ randomIndex +" ROWS FETCH NEXT 1 ROW ONLY)";
+
+            try (PreparedStatement statement = con.prepareStatement(sql)){
+                statement.executeUpdate();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // Handle the exception according to your application's error handling strategy
+        }
+    }
+
+    public void updateAnswer(String cardID, String answer){
+        try {
+            String sql = "UPDATE CardStatus SET Answer = '" + answer + "' WHERE CardID = '" + cardID + "'";
+
+            try (PreparedStatement statement = con.prepareStatement(sql)){
+                statement.executeUpdate();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // Handle the exception according to your application's error handling strategy
+        }
+    }
+
+    public void cardNeverShownAgain(String cardID){
+        try {
+            String sql = "UPDATE CardStatus SET Position = 700  WHERE CardID = '" + cardID + "'";
 
             try (PreparedStatement statement = con.prepareStatement(sql)){
                 statement.executeUpdate();
@@ -292,6 +345,20 @@ public class FlashcardDaoimpl implements FlashcardDao {
     public void cardStatusInit(){
         try{
             String sql ="TRUNCATE TABLE CardStatus INSERT INTO CardStatus (CardID) SELECT CardID FROM Cards";
+
+            try (PreparedStatement statement = con.prepareStatement(sql)){
+                statement.executeUpdate();
+
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void cardStatusRestart(){
+        try{
+            String sql ="TRUNCATE TABLE CardStatus";
 
             try (PreparedStatement statement = con.prepareStatement(sql)){
                 statement.executeUpdate();

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.flashcardproject.FlashcardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.flashcardproject.FlashcardController">
    <children>
       <HBox alignment="CENTER" layoutX="45.0" layoutY="914.0" prefHeight="69.0" prefWidth="715.0" spacing="30.0">
          <children>
@@ -104,7 +100,7 @@
             <Button fx:id="finnishButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#FinnishButtonClicked" prefHeight="100.0" prefWidth="90.0" text="Button" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutY="900.0" prefHeight="100.0" prefWidth="800.0" spacing="40.0">
+      <HBox fx:id="hbox" alignment="CENTER" layoutY="899.0" prefHeight="100.0" prefWidth="800.0" spacing="40.0">
          <children>
             <Button fx:id="showAnswerButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#showAnswerButtonClicked" prefHeight="100.0" prefWidth="230.0" text="Show answer" />
             <Button fx:id="irrelevantButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#irrelevantButtonClicked" prefHeight="100.0" prefWidth="230.0" text="Button" />
