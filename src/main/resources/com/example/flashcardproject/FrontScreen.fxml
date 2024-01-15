@@ -7,14 +7,14 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.flashcardproject.FrontscreenController">
    <children>
-      <VBox alignment="CENTER" layoutY="252.0" prefHeight="200.0" prefWidth="801.0" spacing="30.0">
+      <VBox alignment="CENTER" layoutY="282.0" prefHeight="514.0" prefWidth="801.0" spacing="30.0">
          <children>
-            <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadButtonClicked" prefHeight="56.0" prefWidth="250.0" text="Import cards">
+            <Button fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#uploadButtonClicked" prefHeight="150.0" prefWidth="450.0" text="Import cards">
                <font>
                   <Font name="Rockwell" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="newCardButton" layoutX="286.0" layoutY="82.0" mnemonicParsing="false" onAction="#newCardButtonClicked" prefHeight="56.0" prefWidth="250.0" text="Add new card">
+            <Button fx:id="newCardButton" contentDisplay="GRAPHIC_ONLY" layoutX="286.0" layoutY="82.0" mnemonicParsing="false" onAction="#newCardButtonClicked" prefHeight="150.0" prefWidth="450.0" text="Add new card">
                <font>
                   <Font name="Rockwell" size="18.0" />
                </font>

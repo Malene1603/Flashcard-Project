@@ -1,8 +1,10 @@
 package com.example.flashcardproject;
 
 import java.sql.*;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FlashcardDaoimpl implements FlashcardDao {
     private  Connection con;
@@ -221,22 +223,56 @@ public class FlashcardDaoimpl implements FlashcardDao {
         }
     }
 
-    public void updateAnswer(String cardID, String answer){
+    public void updateAnswer(String cardID, String answer, Long timeElapsed){
         try {
-            String sql = "UPDATE CardStatus SET Answer = '" + answer + "' WHERE CardID = '" + cardID + "'";
+            String sql = "UPDATE CardStatus SET Answer = '" + answer + "', TimeSpend = '" + timeElapsed + "' WHERE CardID = '" + cardID + "'";
 
             try (PreparedStatement statement = con.prepareStatement(sql)){
                 statement.executeUpdate();
 
+            }
+            if (answer != "Correct" && answer != "Irrelevant") {
+                String sql2 = "SELECT COUNT(*) AS Count, SUM(TimeSpend) AS SumTimeSpend FROM CardStatus WHERE TimeSpend IS NOT NULL";
+                try (PreparedStatement statement = con.prepareStatement(sql2);
+                     ResultSet resultSet = statement.executeQuery()) {
+
+                    Integer maxMin = 0;
+                    if (answer == "Almost correct") {
+                        maxMin = 10;
+                    } else if (answer == "Partially correct") {
+                        maxMin = 5;
+                    } else if (answer == "Incorrect") {
+                        maxMin = 1;
+                    }
+
+                    // Assuming there is an integer column named "count" in the result set
+                    if (resultSet.next()) {
+                        Integer count = resultSet.getInt(1);
+                        Integer sumSpendTime = resultSet.getInt(2);
+                        int maxRandom = (int) (maxMin.floatValue() * 60 / (sumSpendTime.floatValue() / count.floatValue()));
+                        Random random = new Random();
+                        int randomIndex = random.nextInt(maxRandom) + 1;
+
+                        System.out.println("Maxmin:" + maxMin + " Count:" + count + " sumSpendTime:"+ sumSpendTime + " MaxRandom:" + maxRandom + " RandomIndex:" + randomIndex);
+
+                        String sql3 = "UPDATE CardStatus SET Position = POSITION + '" + randomIndex + "' WHERE CardID = '" + cardID + "'";
+
+                        try (PreparedStatement statement2 = con.prepareStatement(sql3)){
+                            statement2.executeUpdate();
+
+                        }
+
+                    }
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();  // Handle the exception according to your application's error handling strategy
         }
     }
 
-    public void cardNeverShownAgain(String cardID){
+    public void newCardPosition(String cardID){
         try {
-            String sql = "UPDATE CardStatus SET Position = 700  WHERE CardID = '" + cardID + "'";
+            String sql = "INSERT INTO CardStatus (CardID) SELECT CardID FROM Cards WHERE CardID = '" + cardID + "'UPDATE CardStatus SET position = (SELECT COUNT(*) FROM cards) WHERE cardID = '"+ cardID +"';";
 
             try (PreparedStatement statement = con.prepareStatement(sql)){
                 statement.executeUpdate();
@@ -359,6 +395,20 @@ public class FlashcardDaoimpl implements FlashcardDao {
     public void cardStatusRestart(){
         try{
             String sql ="TRUNCATE TABLE CardStatus";
+
+            try (PreparedStatement statement = con.prepareStatement(sql)){
+                statement.executeUpdate();
+
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void finnishtraining() {
+        try{
+            String sql ="TRUNCATE TABLE CardStatus TRUNCATE TABLE Cards";
 
             try (PreparedStatement statement = con.prepareStatement(sql)){
                 statement.executeUpdate();

@@ -4,8 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -15,6 +14,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Optional;
 
 public class FlashcardController {
 
@@ -84,6 +86,9 @@ public class FlashcardController {
     @FXML
     private Button irrelevantButton;
 
+    private Instant startTime;
+    private Instant endTime;
+
     private FlashcardDaoimpl fdi = new FlashcardDaoimpl();
 
 
@@ -92,6 +97,7 @@ public class FlashcardController {
     }
 
     public void initialize() throws SQLException, MalformedURLException {
+        startTime = Instant.now();
         showRandomFlashcard();
 
         correctLabel.setText("Correct: " + fdi.countCorrect());
@@ -201,9 +207,6 @@ public class FlashcardController {
             Integer pos2 = URL1.indexOf("\"\"", pos1 + 1);
             String filename = URL1.substring(pos1 + 2, pos2);
             String path = "Images/" + filename;
-            System.out.println(URL1 + "     " +pos1 + "     " + pos2);
-            System.out.println(filename);
-            System.out.println(path);
 
             Image image = new Image(String.valueOf(getClass().getResource(path)));
             questionImage.setImage(image);
@@ -251,29 +254,134 @@ public class FlashcardController {
         incorrectButton.setOpacity(1.0);
     }
 
-    public void incorrectButtonClicked(ActionEvent actionEvent) throws SQLException {
+    public void incorrectButtonClicked(ActionEvent actionEvent) throws SQLException, MalformedURLException {
+        endTime = Instant.now();
+        Duration timeElapsed = Duration.between(startTime, endTime);
+        FlashcardManager flashcardManager = new FlashcardManager();
+        Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
+
+        String cardID = thisFlashcard.getCardID();
+        String answer = "Incorrect";
+
+        fdi.updateAnswer(cardID, answer, timeElapsed.toSeconds());
+        startTime = Instant.now();
+        showRandomFlashcard();
+
+        cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
+        correctLabel.setText("Correct: " + fdi.countCorrect());
+        incorrectLabel.setText("Incorrect:" + fdi.countIncorrect());
+        partiallyCorrectLabel.setText("Partially correct:" + fdi.countPartiallyCorrect());
+        almostCorrectLabel.setText("Almost correct" + fdi.countAlmostCorrect());
+
+        correctButton.setOpacity(0);
+        incorrectButton.setOpacity(0);
+        almostCorrectButton.setOpacity(0);
+        partiallyCorrectButton.setOpacity(0);
+
+        hbox.setPrefWidth(800);
+        hbox.setPrefHeight(100);
+        showAnswerButton.setOpacity(1);
+        irrelevantButton.setOpacity(1);
 
     }
 
-    public void partiallyCorrectButtonClicked(ActionEvent actionEvent) {
+    public void partiallyCorrectButtonClicked(ActionEvent actionEvent) throws MalformedURLException, SQLException {
+        endTime = Instant.now();
+        Duration timeElapsed = Duration.between(startTime, endTime);
+        FlashcardManager flashcardManager = new FlashcardManager();
+        Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
+
+        String cardID = thisFlashcard.getCardID();
+        String answer = "Partially correct";
+
+        fdi.updateAnswer(cardID, answer, timeElapsed.toSeconds());
+        startTime = Instant.now();
+        showRandomFlashcard();
+
+        cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
+        correctLabel.setText("Correct: " + fdi.countCorrect());
+        incorrectLabel.setText("Incorrect:" + fdi.countIncorrect());
+        partiallyCorrectLabel.setText("Partially correct:" + fdi.countPartiallyCorrect());
+        almostCorrectLabel.setText("Almost correct" + fdi.countAlmostCorrect());
+
+        correctButton.setOpacity(0);
+        incorrectButton.setOpacity(0);
+        almostCorrectButton.setOpacity(0);
+        partiallyCorrectButton.setOpacity(0);
+
+        hbox.setPrefWidth(800);
+        hbox.setPrefHeight(100);
+        showAnswerButton.setOpacity(1);
+        irrelevantButton.setOpacity(1);
     }
 
-    public void almostCorrectButtonClicked(ActionEvent actionEvent) {
+    public void almostCorrectButtonClicked(ActionEvent actionEvent) throws MalformedURLException, SQLException {
+        endTime = Instant.now();
+        Duration timeElapsed = Duration.between(startTime, endTime);
+        FlashcardManager flashcardManager = new FlashcardManager();
+        Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
+
+        String cardID = thisFlashcard.getCardID();
+        String answer = "Almost correct";
+
+        fdi.updateAnswer(cardID, answer, timeElapsed.toSeconds());
+        startTime = Instant.now();
+        showRandomFlashcard();
+
+        cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
+        correctLabel.setText("Correct: " + fdi.countCorrect());
+        incorrectLabel.setText("Incorrect:" + fdi.countIncorrect());
+        partiallyCorrectLabel.setText("Partially correct:" + fdi.countPartiallyCorrect());
+        almostCorrectLabel.setText("Almost correct" + fdi.countAlmostCorrect());
+
+        correctButton.setOpacity(0);
+        incorrectButton.setOpacity(0);
+        almostCorrectButton.setOpacity(0);
+        partiallyCorrectButton.setOpacity(0);
+
+        hbox.setPrefWidth(800);
+        hbox.setPrefHeight(100);
+        showAnswerButton.setOpacity(1);
+        irrelevantButton.setOpacity(1);
     }
 
     public void correctButtonClicked(ActionEvent actionEvent) throws SQLException, MalformedURLException {
+        endTime = Instant.now();
+        Duration timeElapsed = Duration.between(startTime, endTime);
         FlashcardManager flashcardManager = new FlashcardManager();
         Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
 
         String cardID = thisFlashcard.getCardID();
         String answer = "Correct";
 
-        fdi.updateAnswer(cardID, answer);
-        fdi.cardNeverShownAgain(cardID);
+        fdi.updateAnswer(cardID, answer, timeElapsed.toSeconds());
+        startTime = Instant.now();
         showRandomFlashcard();
 
         cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
-        correctLabel.setText("Cards left: " + fdi.countCorrect());
+        correctLabel.setText("Correct: " + fdi.countCorrect());
+        incorrectLabel.setText("Incorrect:" + fdi.countIncorrect());
+        partiallyCorrectLabel.setText("Partially correct:" + fdi.countPartiallyCorrect());
+        almostCorrectLabel.setText("Almost correct" + fdi.countAlmostCorrect());
+
+        if (fdi.countCardsLeft() == 0){
+            Dialog<ButtonType> dialogvindue = new Dialog();
+            dialogvindue.setTitle("Congratulations you have completed the traning");
+            dialogvindue.setHeaderText("Congratulations you have completed the traning");
+            //dialogvindue.getDialogPane().getStyleClass().add("Dialog");
+            //dialogvindue.getDialogPane().getStylesheets().add(getClass().getResource("/MyTunesCSS.css").toExternalForm());
+            ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+            dialogvindue.getDialogPane().getButtonTypes().addAll(addButton, ButtonType.CANCEL);
+            TextField name = new TextField();
+            name.setPromptText("Name");
+            VBox box = new VBox(name);
+            box.setPrefHeight(50);
+            box.setPrefWidth(300);
+            dialogvindue.getDialogPane().setContent(box);
+
+
+            Optional<ButtonType> button = dialogvindue.showAndWait();
+        }
 
         correctButton.setOpacity(0);
         incorrectButton.setOpacity(0);
@@ -287,18 +395,25 @@ public class FlashcardController {
     }
 
     public void irrelevantButtonClicked(ActionEvent event) throws MalformedURLException, SQLException {
+        endTime = Instant.now();
+        Duration timeElapsed = Duration.between(startTime, endTime);
         FlashcardManager flashcardManager = new FlashcardManager();
         Flashcard thisFlashcard = flashcardManager.showTheFisrstCard();
 
         String cardID = thisFlashcard.getCardID();
         String answer = "Irrelevant";
 
-        fdi.updateAnswer(cardID, answer);
-        fdi.cardNeverShownAgain(cardID);
+        fdi.updateAnswer(cardID, answer, timeElapsed.toSeconds());
+        startTime = Instant.now();
         showRandomFlashcard();
 
         cardsLeftLabel.setText("Cards left: " + fdi.countCardsLeft());
+        correctLabel.setText("Correct: " + fdi.countCorrect());
+        incorrectLabel.setText("Incorrect:" + fdi.countIncorrect());
+        partiallyCorrectLabel.setText("Partially correct:" + fdi.countPartiallyCorrect());
+        almostCorrectLabel.setText("Almost correct" + fdi.countAlmostCorrect());
     }
+
 
     public void pauseButtonClicked(ActionEvent actionEvent) {
         Stage stage = (Stage) pauseButton.getScene().getWindow();
@@ -316,6 +431,9 @@ public class FlashcardController {
         changeScene(currentScene);
     }
 
-    public void FinnishButtonClicked(ActionEvent actionEvent) {
+    public void FinnishButtonClicked(ActionEvent actionEvent) throws IOException {
+        fdi.finnishtraining();
+        Scene currentScene = finnishButton.getScene();
+        changeScene(currentScene);
     }
 }

@@ -11,4 +11,6 @@ public interface FlashcardDao {
     List<Flashcard> getAllFlashcards() throws SQLException;
 
     List<Flashcard> nextCard() throws SQLException;
+
+    void newCardPosition(String text);
 }
