@@ -1,8 +1,7 @@
 package com.example.flashcardproject;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
@@ -36,21 +35,30 @@ public class NewCardDialog {
         dialogvindue.getDialogPane().getStylesheets().add(getClass().getResource("/FlashcardCSS.css").toExternalForm());
 
         // Tilføj knapper til dialogboksen
-        ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-        dialogvindue.getDialogPane().getButtonTypes().addAll(addButton, ButtonType.CANCEL);
+        ButtonType addButton = new ButtonType("", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = ButtonType.CANCEL;
+        dialogvindue.getDialogPane().getButtonTypes().addAll(addButton, cancelButton);
+        Button addBtn = (Button) dialogvindue.getDialogPane().lookupButton(addButton);
+        Button cancelBtn = (Button) dialogvindue.getDialogPane().lookupButton(cancelButton);
+        addBtn.getStyleClass().add("dialogButtons");
+        cancelBtn.getStyleClass().add("dialogButtons");
+        cancelBtn.setText("");
 
         //Opretter alle tekstfelter, sætter prompttekster, og de første fire sættes til ikke at skulle kunne redigeres.
         TextField cardID = new TextField();
         cardID.setEditable(false);
+        cardID.getStyleClass().add("text-field");
         TextField category = new TextField(categoryText);
         category.setEditable(false);
+        category.getStyleClass().add("text-field");
         TextField question = new TextField();
         question.setEditable(false);
         TextField artwork = new TextField();
         artwork.setPromptText("Chooose a file");
         artwork.setEditable(false);
         Button chooseFileButton = new Button();
-        chooseFileButton.setText("Choose file");
+        chooseFileButton.getStyleClass().add("dialogButtons");
+        chooseFileButton.setText("");
         TextField artist = new TextField();
         artist.setPromptText("Artist");
         TextField title = new TextField();
@@ -72,12 +80,45 @@ public class NewCardDialog {
 
         // Laver en ny hbox artwork tekstfeltet og choose file button ind i den så de vil blive vist ved siden af hinanden
         HBox hbox = new HBox(artwork, chooseFileButton);
+        hbox.getStyleClass().add("hbox");
         // Laver en vbox og tilføjer alle tekstfelter og hboxen i den rækkefølge de skal vises
         VBox box = new VBox(cardID, category, question, hbox, artist, title, subtitle, date, period, medium, nationality, note, tags);
 
+        // Sætter spacing mellem elementerne
+        box.setSpacing(10);
+        hbox.setSpacing(70);
+
         // Sætter højde og bredde på dialogboksen
-        box.setPrefHeight(500);
-        box.setPrefWidth(300);
+        box.setPrefHeight(800);
+        box.setPrefWidth(500);
+
+        //Sætter baggrundsbilleder på knapperne
+        Background addBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Add.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        addBtn.setBackground(addBackground);
+
+        Background cancelBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("Cancel.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        cancelBtn.setBackground(cancelBackground);
+
+        Background chooseFileBackground = new Background(new BackgroundImage(
+                new Image(getClass().getResource("ChooseFile.png").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        ));
+        chooseFileButton.setBackground(chooseFileBackground);
 
         // Indsæt layout i dialogboksen
         dialogvindue.getDialogPane().setContent(box);
