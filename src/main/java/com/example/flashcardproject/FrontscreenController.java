@@ -7,9 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
@@ -26,8 +24,6 @@ public class FrontscreenController {
     @FXML
     private Button newCardButton;
     private FlashcardDaoimpl fdi = new FlashcardDaoimpl();
-
-    final FileChooser fileChooser = new FileChooser();
 
     // Boolean til at
     private Boolean playmode;

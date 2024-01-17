@@ -128,6 +128,12 @@ public class NewCardDialog {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select File");
 
+            // gør så filechooseren kun kan vælge png og jpg filere
+            FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG Files", "*.png");
+            FileChooser.ExtensionFilter jpgFilter = new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.jpeg");
+
+            fileChooser.getExtensionFilters().addAll(pngFilter, jpgFilter);
+
             // Viser filechooseren
             File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
 
