@@ -111,20 +111,12 @@ public class FrontscreenController {
 
         // hvis playmode ikke er true kører den else
         } else {
-            // Opretter en ny filechoser
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select File");
 
-            // Viser filer fra den mappe hvor appen er blevet kørt fra
-            fileChooser.setInitialDirectory(new File("."));
+            //Opretter en string til art filens path
+            String filePath = "src/main/resources/com/example/flashcardproject/Great Works of Art__Artists.txt";
 
-            // Viser filechooseren
-            File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
-
-            // Hvis der er blevet valgt en fil
-            if (file != null) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
-                    String line;
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
 
                     // Læs filen linje for linje
                     while ((line = reader.readLine()) != null) {
@@ -163,14 +155,19 @@ public class FrontscreenController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                // Opdater knappens tekst og sætter playmode til true
-                uploadButton.setText("Start training");
+                // Opdater knappens baggrund og sætter playmode til true
+                Background startTrainingBackground = new Background(new BackgroundImage(
+                        new Image(String.valueOf(getClass().getResource("StartTraning.png"))),
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT
+                ));
+                uploadButton.setBackground(startTrainingBackground);
                 playmode = true;
             }
 
-
         }
-    }
 
     // Eventhandler på new card button der åbner et dialogvindue når der trykkes
     @FXML
