@@ -134,7 +134,7 @@ public class FrontscreenController {
 
                                 // Tjekker om der er flere værdier og tildel dem hvis det er tilfældet
                                 // Hvis længden af arrayet 'values' er større end eller lig med 7, tildel værdien på indeks 6 til 'subtitle', ellers tildel en tom streng ("").
-                                // Da ikke alle kort havde noget i alle 23 kolonner var dette nødvendigt
+                                // Da ikke alle kort havde noget i alle 13 kolonner var dette nødvendigt
                                 String subtitle = values.length >= 7 ? values[6] : "";
                                 String date = values.length >= 8 ? values[7] : "";
                                 String period = values.length >= 9 ? values[8] : "";

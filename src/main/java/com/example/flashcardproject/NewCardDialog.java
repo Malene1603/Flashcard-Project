@@ -201,6 +201,7 @@ public class NewCardDialog {
 
     // Metode til at generere et unikt ID
     private String generateUniqueID() {
+
         return UUID.randomUUID().toString();
     }
 }
